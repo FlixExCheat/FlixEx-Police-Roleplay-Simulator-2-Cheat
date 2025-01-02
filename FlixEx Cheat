@@ -1,265 +1,238 @@
--- Orion Library laden
-local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
-
--- GUI erstellen
-local Window = OrionLib:MakeWindow({
+local _0x79e4 = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
+local _0x471b = _0x79e4:MakeWindow({
     Name = "FlixEx [BETA]",
     HidePremium = false,
     SaveConfig = true,
     ConfigFolder = "HCPDConfig"
 })
 
--- Tabs erstellen
-local MainTab = Window:MakeTab({
+local _0x487e = _0x471b:MakeTab({
     Name = "Main ⚙",
     Icon = "rbxassetid://4483345998",
     PremiumOnly = false
 })
 
-local AimLockTab = Window:MakeTab({
+local _0x378b = _0x471b:MakeTab({
     Name = "AimLock 🏹",
     Icon = "rbxassetid://4483345998",
     PremiumOnly = false
 })
 
-local TeleportsTab = Window:MakeTab({
+local _0x3b9f = _0x471b:MakeTab({
     Name = "Teleports ✨",
     Icon = "rbxassetid://4483345998",
     PremiumOnly = false
 })
 
-local InfoTab = Window:MakeTab({
+local _0x6e7c = _0x471b:MakeTab({
     Name = "Info ℹ️",
     Icon = "rbxassetid://4483345998",
     PremiumOnly = false
 })
 
--- Info Tab-Inhalt hinzufügen
-InfoTab:AddParagraph("Credits", "Made by Keys")
+_0x6e7c:AddParagraph("Credits", "Made by Keys")
+_0x6e7c:AddParagraph("Last updated:", "Second January 2025")
 
--- SpeedHack-Funktionalität (im Main Tab)
-local SpeedHackEnabled = false
-local speedValue = 16
+local _0x22b6 = false
+local _0x4cde = 16
 
-MainTab:AddToggle({
+_0x487e:AddToggle({
     Name = "SpeedHack",
     Default = false,
-    Callback = function(Value)
-        SpeedHackEnabled = Value
-        if SpeedHackEnabled then
-            game.Players.LocalPlayer.Character:WaitForChild("Humanoid").WalkSpeed = speedValue
+    Callback = function(_0x2bfe)
+        _0x22b6 = _0x2bfe
+        if _0x22b6 then
+            game.Players.LocalPlayer.Character:WaitForChild("Humanoid").WalkSpeed = _0x4cde
         else
             game.Players.LocalPlayer.Character:WaitForChild("Humanoid").WalkSpeed = 16
         end
     end
 })
 
-MainTab:AddSlider({
+_0x487e:AddSlider({
     Name = "Speed",
     Min = 0,
     Max = 500,
     Default = 16,
-    Callback = function(Value)
-        speedValue = Value
-        if SpeedHackEnabled then
-            game.Players.LocalPlayer.Character:WaitForChild("Humanoid").WalkSpeed = speedValue
+    Callback = function(_0x2724)
+        _0x4cde = _0x2724
+        if _0x22b6 then
+            game.Players.LocalPlayer.Character:WaitForChild("Humanoid").WalkSpeed = _0x4cde
         end
     end
 })
 
--- Teleport-Buttons im Teleports Tab
-TeleportsTab:AddButton({
+_0x3b9f:AddButton({
     Name = "Gate",
     Callback = function()
         game.Players.LocalPlayer.Character:SetPrimaryPartCFrame(CFrame.new(-47.42, 5.60, -498.29))
     end
 })
 
-TeleportsTab:AddButton({
+_0x3b9f:AddButton({
     Name = "Weapon Shop",
     Callback = function()
         game.Players.LocalPlayer.Character:SetPrimaryPartCFrame(CFrame.new(-348.018798828125, 5.600290775299072, -778.2922873632812))
     end
 })
 
-TeleportsTab:AddButton({
+_0x3b9f:AddButton({
     Name = "Safe Gate TP",
     Callback = function()
         game.Players.LocalPlayer.Character:SetPrimaryPartCFrame(CFrame.new(-164.77700805664062, 6.316139221191406, -646.4644775390625))
     end
 })
 
-TeleportsTab:AddButton({
+_0x3b9f:AddButton({
     Name = "Inside ASU area",
     Callback = function()
         game.Players.LocalPlayer.Character:SetPrimaryPartCFrame(CFrame.new(-283.7239074707031, 6.4162373542785645, -201.4882354736328) + Vector3.new(0, 0, 5))
     end
 })
 
--- AimLock Button und Paragraph
-AimLockTab:AddButton({
+_0x378b:AddButton({
     Name = "Execute AimLock",
     Callback = function()
-        -- Der AimLock Code kann hier integriert werden
-       local Players = game:GetService("Players")
-    local UserInputService = game:GetService("UserInputService")
-    local RunService = game:GetService("RunService")
+        local _0x17cb = game:GetService("Players")
+        local _0x55f7 = game:GetService("UserInputService")
+        local _0x535a = game:GetService("RunService")
 
-    -- Variablen für AimLock
-    local aimLockEnabled = false
-    local predictionEnabled = false
-    local predictionAmount = 0.1 -- Anpassbare Prediction
-    local lockedPlayer = nil
+        local _0x10a2 = false
+        local _0x23c0 = false
+        local _0x5015 = 0.1
+        local _0x1d63 = nil
 
-    -- GUI erstellen
-    local screenGui = Instance.new("ScreenGui")
-    screenGui.Name = "AimLockGui"
-    screenGui.ResetOnSpawn = false -- GUI bleibt bestehen, auch nach dem Tod
-    screenGui.Parent = Players.LocalPlayer:WaitForChild("PlayerGui")
+        local _0x5f7a = Instance.new("ScreenGui")
+        _0x5f7a.Name = "AimLockGui"
+        _0x5f7a.ResetOnSpawn = false
+        _0x5f7a.Parent = _0x17cb.LocalPlayer:WaitForChild("PlayerGui")
 
-    -- Haupt-Frame
-    local mainFrame = Instance.new("Frame")
-    mainFrame.Size = UDim2.new(0.25, 0, 0.2, 0)
-    mainFrame.Position = UDim2.new(0.375, 0, 0.4, 0)
-    mainFrame.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-    mainFrame.BorderSizePixel = 0
-    mainFrame.Parent = screenGui
-    mainFrame.Active = true
-    mainFrame.Draggable = true
+        local _0x61c2 = Instance.new("Frame")
+        _0x61c2.Size = UDim2.new(0.25, 0, 0.2, 0)
+        _0x61c2.Position = UDim2.new(0.375, 0, 0.4, 0)
+        _0x61c2.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+        _0x61c2.BorderSizePixel = 0
+        _0x61c2.Parent = _0x5f7a
+        _0x61c2.Active = true
+        _0x61c2.Draggable = true
 
-    -- Runde Ecken für Frame
-    local mainFrameCorner = Instance.new("UICorner")
-    mainFrameCorner.CornerRadius = UDim.new(0, 12)
-    mainFrameCorner.Parent = mainFrame
+        local _0x62f8 = Instance.new("UICorner")
+        _0x62f8.CornerRadius = UDim.new(0, 12)
+        _0x62f8.Parent = _0x61c2
 
-    -- Überschrift
-    local titleLabel = Instance.new("TextLabel")
-    titleLabel.Text = "AimLock System"
-    titleLabel.Size = UDim2.new(1, 0, 0.3, 0)
-    titleLabel.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
-    titleLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
-    titleLabel.Font = Enum.Font.GothamBold
-    titleLabel.TextScaled = true
-    titleLabel.Parent = mainFrame
+        local _0x7fe1 = Instance.new("TextLabel")
+        _0x7fe1.Text = "AimLock System"
+        _0x7fe1.Size = UDim2.new(1, 0, 0.3, 0)
+        _0x7fe1.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+        _0x7fe1.TextColor3 = Color3.fromRGB(255, 255, 255)
+        _0x7fe1.Font = Enum.Font.GothamBold
+        _0x7fe1.TextScaled = true
+        _0x7fe1.Parent = _0x61c2
 
-    -- Runde Ecken für Titel
-    local titleCorner = Instance.new("UICorner")
-    titleCorner.CornerRadius = UDim.new(0, 12)
-    titleCorner.Parent = titleLabel
+        local _0x3f8f = Instance.new("UICorner")
+        _0x3f8f.CornerRadius = UDim.new(0, 12)
+        _0x3f8f.Parent = _0x7fe1
 
-    -- AimLock-Button
-    local aimLockButton = Instance.new("TextButton")
-    aimLockButton.Text = "AimLock: OFF"
-    aimLockButton.Size = UDim2.new(0.8, 0, 0.25, 0) -- Angepasste Höhe
-    aimLockButton.Position = UDim2.new(0.1, 0, 0.35, 0) -- Zentriert
-    aimLockButton.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
-    aimLockButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-    aimLockButton.Font = Enum.Font.GothamBold
-    aimLockButton.TextScaled = true
-    aimLockButton.Parent = mainFrame
+        local _0x2fd3 = Instance.new("TextButton")
+        _0x2fd3.Text = "AimLock: OFF"
+        _0x2fd3.Size = UDim2.new(0.8, 0, 0.25, 0)
+        _0x2fd3.Position = UDim2.new(0.1, 0, 0.35, 0)
+        _0x2fd3.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+        _0x2fd3.TextColor3 = Color3.fromRGB(255, 255, 255)
+        _0x2fd3.Font = Enum.Font.GothamBold
+        _0x2fd3.TextScaled = true
+        _0x2fd3.Parent = _0x61c2
 
-    -- Runde Ecken für AimLock-Button
-    local aimLockCorner = Instance.new("UICorner")
-    aimLockCorner.CornerRadius = UDim.new(0, 8)
-    aimLockCorner.Parent = aimLockButton
+        local _0x4b89 = Instance.new("UICorner")
+        _0x4b89.CornerRadius = UDim.new(0, 8)
+        _0x4b89.Parent = _0x2fd3
 
-    -- Prediction-Button
-    local predictionButton = Instance.new("TextButton")
-    predictionButton.Text = "Prediction: OFF"
-    predictionButton.Size = UDim2.new(0.8, 0, 0.25, 0) -- Gleiche Höhe wie AimLock
-    predictionButton.Position = UDim2.new(0.1, 0, 0.7, 0) -- Korrekte Position
-    predictionButton.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
-    predictionButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-    predictionButton.Font = Enum.Font.GothamBold
-    predictionButton.TextScaled = true
-    predictionButton.Parent = mainFrame
+        local _0x2614 = Instance.new("TextButton")
+        _0x2614.Text = "Prediction: OFF"
+        _0x2614.Size = UDim2.new(0.8, 0, 0.25, 0)
+        _0x2614.Position = UDim2.new(0.1, 0, 0.7, 0)
+        _0x2614.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+        _0x2614.TextColor3 = Color3.fromRGB(255, 255, 255)
+        _0x2614.Font = Enum.Font.GothamBold
+        _0x2614.TextScaled = true
+        _0x2614.Parent = _0x61c2
 
-    -- Runde Ecken für Prediction-Button
-    local predictionCorner = Instance.new("UICorner")
-    predictionCorner.CornerRadius = UDim.new(0, 8)
-    predictionCorner.Parent = predictionButton
+        local _0x5e8f = Instance.new("UICorner")
+        _0x5e8f.CornerRadius = UDim.new(0, 8)
+        _0x5e8f.Parent = _0x2614
 
-    -- Funktionen für Knöpfe
-    aimLockButton.MouseButton1Click:Connect(function()
-        aimLockEnabled = not aimLockEnabled
-        if aimLockEnabled then
-            aimLockButton.Text = "AimLock: ON"
-            aimLockButton.BackgroundColor3 = Color3.fromRGB(0, 255, 0)
-        else
-            aimLockButton.Text = "AimLock: OFF"
-            aimLockButton.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
-            lockedPlayer = nil -- AimLock zurücksetzen
-        end
-    end)
+        _0x2fd3.MouseButton1Click:Connect(function()
+            _0x10a2 = not _0x10a2
+            if _0x10a2 then
+                _0x2fd3.Text = "AimLock: ON"
+                _0x2fd3.BackgroundColor3 = Color3.fromRGB(0, 255, 0)
+            else
+                _0x2fd3.Text = "AimLock: OFF"
+                _0x2fd3.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+                _0x1d63 = nil
+            end
+        end)
 
-    predictionButton.MouseButton1Click:Connect(function()
-        predictionEnabled = not predictionEnabled
-        if predictionEnabled then
-            predictionButton.Text = "Prediction: ON"
-            predictionButton.BackgroundColor3 = Color3.fromRGB(0, 255, 0)
-        else
-            predictionButton.Text = "Prediction: OFF"
-            predictionButton.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
-        end
-    end)
+        _0x2614.MouseButton1Click:Connect(function()
+            _0x23c0 = not _0x23c0
+            if _0x23c0 then
+                _0x2614.Text = "Prediction: ON"
+                _0x2614.BackgroundColor3 = Color3.fromRGB(0, 255, 0)
+            else
+                _0x2614.Text = "Prediction: OFF"
+                _0x2614.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+            end
+        end)
 
-    -- Hilfsfunktion, um den nächsten Spieler zu finden
-    local function getClosestPlayerToMouse()
-        local mousePos = UserInputService:GetMouseLocation()
-        local closestPlayer = nil
-        local closestDistance = math.huge
-
-        for _, player in pairs(Players:GetPlayers()) do
-            if player ~= Players.LocalPlayer and player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
-                local character = player.Character
-                local screenPos, onScreen = workspace.CurrentCamera:WorldToViewportPoint(character.HumanoidRootPart.Position)
-                if onScreen then
-                    local distance = (Vector2.new(screenPos.X, screenPos.Y) - mousePos).Magnitude
-                    if distance < closestDistance then
-                        closestDistance = distance
-                        closestPlayer = player
+        local function _0x1b09()
+            local _0x1d94 = _0x55f7:GetMouseLocation()
+            local _0x4b87 = nil
+            local _0x2c2e = math.huge
+            for _, _0x4c1a in pairs(_0x17cb:GetPlayers()) do
+                if _0x4c1a ~= _0x17cb.LocalPlayer and _0x4c1a.Character and _0x4c1a.Character:FindFirstChild("HumanoidRootPart") then
+                    local _0x20d6 = _0x4c1a.Character
+                    local _0x3440, _0x48a5 = workspace.CurrentCamera:WorldToViewportPoint(_0x20d6.HumanoidRootPart.Position)
+                    if _0x48a5 then
+                        local _0x2db5 = (Vector2.new(_0x3440.X, _0x3440.Y) - _0x1d94).Magnitude
+                        if _0x2db5 < _0x2c2e then
+                            _0x2c2e = _0x2db5
+                            _0x4b87 = _0x4c1a
+                        end
                     end
                 end
             end
+            return _0x4b87
         end
 
-        return closestPlayer
+        _0x55f7.InputBegan:Connect(function(_0x1a11, _0x2b02)
+            if _0x2b02 then return end
+            if _0x1a11.KeyCode == Enum.KeyCode.C then
+                if _0x1d63 then
+                    _0x1d63 = nil
+                else
+                    _0x1d63 = _0x1b09()
+                end
+            end
+        end)
+
+        _0x535a.RenderStepped:Connect(function()
+            if _0x10a2 and _0x1d63 and _0x1d63.Character and _0x1d63.Character:FindFirstChild("HumanoidRootPart") then
+                local _0x3a62 = _0x1d63.Character.HumanoidRootPart.Position
+                if _0x23c0 then
+                    local _0x2ca1 = _0x1d63.Character.HumanoidRootPart.Velocity
+                    _0x3a62 = _0x3a62 + _0x2ca1 * _0x5015
+                end
+
+                local _0x3dff = workspace.CurrentCamera
+                _0x3dff.CFrame = CFrame.new(_0x3dff.CFrame.Position, _0x3a62)
+            end
+        end)
     end
-
-    -- AimLock aktivieren/deaktivieren
-    UserInputService.InputBegan:Connect(function(input, isProcessed)
-        if isProcessed then return end
-        if input.KeyCode == Enum.KeyCode.C then
-            if lockedPlayer then
-                -- AimLock deaktivieren
-                lockedPlayer = nil
-            else
-                -- Den nächsten Spieler in der Nähe der Maus finden
-                lockedPlayer = getClosestPlayerToMouse()
-            end
-        end
-    end)
-
-    -- Maus auf das Ziel richten
-    RunService.RenderStepped:Connect(function()
-        if aimLockEnabled and lockedPlayer and lockedPlayer.Character and lockedPlayer.Character:FindFirstChild("HumanoidRootPart") then
-            local targetPos = lockedPlayer.Character.HumanoidRootPart.Position
-            if predictionEnabled then
-                local rootVelocity = lockedPlayer.Character.HumanoidRootPart.Velocity
-                targetPos = targetPos + rootVelocity * predictionAmount
-            end
-
-            local camera = workspace.CurrentCamera
-            camera.CFrame = CFrame.new(camera.CFrame.Position, targetPos)
-        end
-    end)
-end
 })
 
-AimLockTab:AddParagraph(
+_0x378b:AddParagraph(
     "⚠️Important⚠️",
     "Only use prediction when you\nfight at high range\nLock/Unlock with C"
 )
 
--- GUI starten
-OrionLib:Init()
+_0x79e4:Init()
