@@ -1,238 +1,198 @@
-local _0x79e4 = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
-local _0x471b = _0x79e4:MakeWindow({
-    Name = "FlixEx [BETA]",
-    HidePremium = false,
-    SaveConfig = true,
-    ConfigFolder = "HCPDConfig"
-})
-
-local _0x487e = _0x471b:MakeTab({
-    Name = "Main ⚙",
-    Icon = "rbxassetid://4483345998",
-    PremiumOnly = false
-})
-
-local _0x378b = _0x471b:MakeTab({
-    Name = "AimLock 🏹",
-    Icon = "rbxassetid://4483345998",
-    PremiumOnly = false
-})
-
-local _0x3b9f = _0x471b:MakeTab({
-    Name = "Teleports ✨",
-    Icon = "rbxassetid://4483345998",
-    PremiumOnly = false
-})
-
-local _0x6e7c = _0x471b:MakeTab({
-    Name = "Info ℹ️",
-    Icon = "rbxassetid://4483345998",
-    PremiumOnly = false
-})
-
-_0x6e7c:AddParagraph("Credits", "Made by Keys")
-_0x6e7c:AddParagraph("Last updated:", "Second January 2025")
-
-local _0x22b6 = false
-local _0x4cde = 16
-
-_0x487e:AddToggle({
-    Name = "SpeedHack",
-    Default = false,
-    Callback = function(_0x2bfe)
-        _0x22b6 = _0x2bfe
-        if _0x22b6 then
-            game.Players.LocalPlayer.Character:WaitForChild("Humanoid").WalkSpeed = _0x4cde
+local a=loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
+local b=a:MakeWindow({Name="FlixEx [V1]",HidePremium=false,SaveConfig=true,ConfigFolder="HCPDConfig"})
+local c=b:MakeTab({Name="Main ⚙",Icon="rbxassetid://4483345998",PremiumOnly=false})
+local d=b:MakeTab({Name="AimLock 🏹",Icon="rbxassetid://4483345998",PremiumOnly=false})
+local e=b:MakeTab({Name="Teleports ✨",Icon="rbxassetid://4483345998",PremiumOnly=false})
+local f=b:MakeTab({Name="Info ℹ️",Icon="rbxassetid://4483345998",PremiumOnly=false})
+f:AddParagraph("Credits","Made by Keys")
+f:AddParagraph("Last updated:","6th January 2025")
+local g=false
+local h=16
+c:AddToggle({Name="SpeedHack",Default=false,Callback=function(i)
+    g=i
+    if g then
+        game.Players.LocalPlayer.Character:WaitForChild("Humanoid").WalkSpeed=h
+    else
+        game.Players.LocalPlayer.Character:WaitForChild("Humanoid").WalkSpeed=16
+    end
+end})
+c:AddSlider({Name="Speed",Min=0,Max=500,Default=16,Callback=function(i) h=i if g then game.Players.LocalPlayer.Character:WaitForChild("Humanoid").WalkSpeed=h end end})
+local j=false
+local k=50
+local l,m
+local n
+local function o(p)
+    local q=game.Players.LocalPlayer.Character
+    local r=q and q:FindFirstChild("HumanoidRootPart")
+    if p then
+        l=Instance.new("BodyVelocity")
+        l.MaxForce=Vector3.new(1e5,1e5,1e5)
+        l.Velocity=Vector3.zero
+        l.Parent=r
+        m=Instance.new("BodyGyro")
+        m.MaxTorque=Vector3.new(1e5,1e5,1e5)
+        m.CFrame=r.CFrame
+        m.Parent=r
+        n=game:GetService("RunService").RenderStepped:Connect(function()
+            if j then
+                local s=Vector3.zero
+                local t=game:GetService("UserInputService")
+                if t:IsKeyDown(Enum.KeyCode.W) then s=s+workspace.CurrentCamera.CFrame.LookVector end
+                if t:IsKeyDown(Enum.KeyCode.S) then s=s-workspace.CurrentCamera.CFrame.LookVector end
+                if t:IsKeyDown(Enum.KeyCode.A) then s=s-workspace.CurrentCamera.CFrame.RightVector end
+                if t:IsKeyDown(Enum.KeyCode.D) then s=s+workspace.CurrentCamera.CFrame.RightVector end
+                if t:IsKeyDown(Enum.KeyCode.Space) then s=s+Vector3.new(0,1,0) end
+                if t:IsKeyDown(Enum.KeyCode.LeftShift) then s=s-Vector3.new(0,1,0) end
+                if s.Magnitude>0 then l.Velocity=s.Unit*k else l.Velocity=Vector3.zero end
+            end
+        end)
+    else
+        if l then l:Destroy() end
+        if m then m:Destroy() end
+        if n then n:Disconnect() end
+    end
+end
+c:AddToggle({Name="Fly",Default=false,Callback=function(i) j=i o(j) end})
+c:AddSlider({Name="Fly Speed",Min=0,Max=500,Default=50,Callback=function(i) k=i end})
+c:AddParagraph("Fly Controls:","Shift = Fly Down\nSpace = Fly Up\nWASD to Move")
+c:AddButton({Name="Remove all doors",Callback=function()
+    local u=game.Workspace:WaitForChild("Organizer"):WaitForChild("PromptEntities"):WaitForChild("Doors")
+    if u then u:Destroy() end
+end})
+d:AddButton({Name="Execute AimLock",Callback=function()
+    local v=game:GetService("Players")
+    local w=game:GetService("UserInputService")
+    local x=game:GetService("RunService")
+    local y=false
+    local z=false
+    local A=0.1
+    local B=nil
+    local C=Instance.new("ScreenGui")
+    C.Name="AimLockGui"
+    C.ResetOnSpawn=false
+    C.Parent=v.LocalPlayer:WaitForChild("PlayerGui")
+    local D=Instance.new("Frame")
+    D.Size=UDim2.new(0.25,0,0.2,0)
+    D.Position=UDim2.new(0.375,0,0.4,0)
+    D.BackgroundColor3=Color3.fromRGB(40,40,40)
+    D.BorderSizePixel=0
+    D.Parent=C
+    D.Active=true
+    D.Draggable=true
+    local E=Instance.new("UICorner")
+    E.CornerRadius=UDim.new(0,12)
+    E.Parent=D
+    local F=Instance.new("TextLabel")
+    F.Text="AimLock System"
+    F.Size=UDim2.new(1,0,0.3,0)
+    F.BackgroundColor3=Color3.fromRGB(30,30,30)
+    F.TextColor3=Color3.fromRGB(255,255,255)
+    F.Font=Enum.Font.GothamBold
+    F.TextScaled=true
+    F.Parent=D
+    local G=Instance.new("UICorner")
+    G.CornerRadius=UDim.new(0,12)
+    G.Parent=F
+    local H=Instance.new("TextButton")
+    H.Text="AimLock: OFF"
+    H.Size=UDim2.new(0.8,0,0.25,0)
+    H.Position=UDim2.new(0.1,0,0.35,0)
+    H.BackgroundColor3=Color3.fromRGB(255,0,0)
+    H.TextColor3=Color3.fromRGB(255,255,255)
+    H.Font=Enum.Font.GothamBold
+    H.TextScaled=true
+    H.Parent=D
+    local I=Instance.new("UICorner")
+    I.CornerRadius=UDim.new(0,8)
+    I.Parent=H
+    local J=Instance.new("TextButton")
+    J.Text="Prediction: OFF"
+    J.Size=UDim2.new(0.8,0,0.25,0)
+    J.Position=UDim2.new(0.1,0,0.7,0)
+    J.BackgroundColor3=Color3.fromRGB(255,0,0)
+    J.TextColor3=Color3.fromRGB(255,255,255)
+    J.Font=Enum.Font.GothamBold
+    J.TextScaled=true
+    J.Parent=D
+    local K=Instance.new("UICorner")
+    K.CornerRadius=UDim.new(0,8)
+    K.Parent=J
+    H.MouseButton1Click:Connect(function()
+        y=not y
+        if y then
+            H.Text="AimLock: ON"
+            H.BackgroundColor3=Color3.fromRGB(0,255,0)
         else
-            game.Players.LocalPlayer.Character:WaitForChild("Humanoid").WalkSpeed = 16
+            H.Text="AimLock: OFF"
+            H.BackgroundColor3=Color3.fromRGB(255,0,0)
+            B=nil
         end
-    end
-})
-
-_0x487e:AddSlider({
-    Name = "Speed",
-    Min = 0,
-    Max = 500,
-    Default = 16,
-    Callback = function(_0x2724)
-        _0x4cde = _0x2724
-        if _0x22b6 then
-            game.Players.LocalPlayer.Character:WaitForChild("Humanoid").WalkSpeed = _0x4cde
+    end)
+    J.MouseButton1Click:Connect(function()
+        z=not z
+        if z then
+            J.Text="Prediction: ON"
+            J.BackgroundColor3=Color3.fromRGB(0,255,0)
+        else
+            J.Text="Prediction: OFF"
+            J.BackgroundColor3=Color3.fromRGB(255,0,0)
         end
-    end
-})
-
-_0x3b9f:AddButton({
-    Name = "Gate",
-    Callback = function()
-        game.Players.LocalPlayer.Character:SetPrimaryPartCFrame(CFrame.new(-47.42, 5.60, -498.29))
-    end
-})
-
-_0x3b9f:AddButton({
-    Name = "Weapon Shop",
-    Callback = function()
-        game.Players.LocalPlayer.Character:SetPrimaryPartCFrame(CFrame.new(-348.018798828125, 5.600290775299072, -778.2922873632812))
-    end
-})
-
-_0x3b9f:AddButton({
-    Name = "Safe Gate TP",
-    Callback = function()
-        game.Players.LocalPlayer.Character:SetPrimaryPartCFrame(CFrame.new(-164.77700805664062, 6.316139221191406, -646.4644775390625))
-    end
-})
-
-_0x3b9f:AddButton({
-    Name = "Inside ASU area",
-    Callback = function()
-        game.Players.LocalPlayer.Character:SetPrimaryPartCFrame(CFrame.new(-283.7239074707031, 6.4162373542785645, -201.4882354736328) + Vector3.new(0, 0, 5))
-    end
-})
-
-_0x378b:AddButton({
-    Name = "Execute AimLock",
-    Callback = function()
-        local _0x17cb = game:GetService("Players")
-        local _0x55f7 = game:GetService("UserInputService")
-        local _0x535a = game:GetService("RunService")
-
-        local _0x10a2 = false
-        local _0x23c0 = false
-        local _0x5015 = 0.1
-        local _0x1d63 = nil
-
-        local _0x5f7a = Instance.new("ScreenGui")
-        _0x5f7a.Name = "AimLockGui"
-        _0x5f7a.ResetOnSpawn = false
-        _0x5f7a.Parent = _0x17cb.LocalPlayer:WaitForChild("PlayerGui")
-
-        local _0x61c2 = Instance.new("Frame")
-        _0x61c2.Size = UDim2.new(0.25, 0, 0.2, 0)
-        _0x61c2.Position = UDim2.new(0.375, 0, 0.4, 0)
-        _0x61c2.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-        _0x61c2.BorderSizePixel = 0
-        _0x61c2.Parent = _0x5f7a
-        _0x61c2.Active = true
-        _0x61c2.Draggable = true
-
-        local _0x62f8 = Instance.new("UICorner")
-        _0x62f8.CornerRadius = UDim.new(0, 12)
-        _0x62f8.Parent = _0x61c2
-
-        local _0x7fe1 = Instance.new("TextLabel")
-        _0x7fe1.Text = "AimLock System"
-        _0x7fe1.Size = UDim2.new(1, 0, 0.3, 0)
-        _0x7fe1.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
-        _0x7fe1.TextColor3 = Color3.fromRGB(255, 255, 255)
-        _0x7fe1.Font = Enum.Font.GothamBold
-        _0x7fe1.TextScaled = true
-        _0x7fe1.Parent = _0x61c2
-
-        local _0x3f8f = Instance.new("UICorner")
-        _0x3f8f.CornerRadius = UDim.new(0, 12)
-        _0x3f8f.Parent = _0x7fe1
-
-        local _0x2fd3 = Instance.new("TextButton")
-        _0x2fd3.Text = "AimLock: OFF"
-        _0x2fd3.Size = UDim2.new(0.8, 0, 0.25, 0)
-        _0x2fd3.Position = UDim2.new(0.1, 0, 0.35, 0)
-        _0x2fd3.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
-        _0x2fd3.TextColor3 = Color3.fromRGB(255, 255, 255)
-        _0x2fd3.Font = Enum.Font.GothamBold
-        _0x2fd3.TextScaled = true
-        _0x2fd3.Parent = _0x61c2
-
-        local _0x4b89 = Instance.new("UICorner")
-        _0x4b89.CornerRadius = UDim.new(0, 8)
-        _0x4b89.Parent = _0x2fd3
-
-        local _0x2614 = Instance.new("TextButton")
-        _0x2614.Text = "Prediction: OFF"
-        _0x2614.Size = UDim2.new(0.8, 0, 0.25, 0)
-        _0x2614.Position = UDim2.new(0.1, 0, 0.7, 0)
-        _0x2614.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
-        _0x2614.TextColor3 = Color3.fromRGB(255, 255, 255)
-        _0x2614.Font = Enum.Font.GothamBold
-        _0x2614.TextScaled = true
-        _0x2614.Parent = _0x61c2
-
-        local _0x5e8f = Instance.new("UICorner")
-        _0x5e8f.CornerRadius = UDim.new(0, 8)
-        _0x5e8f.Parent = _0x2614
-
-        _0x2fd3.MouseButton1Click:Connect(function()
-            _0x10a2 = not _0x10a2
-            if _0x10a2 then
-                _0x2fd3.Text = "AimLock: ON"
-                _0x2fd3.BackgroundColor3 = Color3.fromRGB(0, 255, 0)
-            else
-                _0x2fd3.Text = "AimLock: OFF"
-                _0x2fd3.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
-                _0x1d63 = nil
-            end
-        end)
-
-        _0x2614.MouseButton1Click:Connect(function()
-            _0x23c0 = not _0x23c0
-            if _0x23c0 then
-                _0x2614.Text = "Prediction: ON"
-                _0x2614.BackgroundColor3 = Color3.fromRGB(0, 255, 0)
-            else
-                _0x2614.Text = "Prediction: OFF"
-                _0x2614.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
-            end
-        end)
-
-        local function _0x1b09()
-            local _0x1d94 = _0x55f7:GetMouseLocation()
-            local _0x4b87 = nil
-            local _0x2c2e = math.huge
-            for _, _0x4c1a in pairs(_0x17cb:GetPlayers()) do
-                if _0x4c1a ~= _0x17cb.LocalPlayer and _0x4c1a.Character and _0x4c1a.Character:FindFirstChild("HumanoidRootPart") then
-                    local _0x20d6 = _0x4c1a.Character
-                    local _0x3440, _0x48a5 = workspace.CurrentCamera:WorldToViewportPoint(_0x20d6.HumanoidRootPart.Position)
-                    if _0x48a5 then
-                        local _0x2db5 = (Vector2.new(_0x3440.X, _0x3440.Y) - _0x1d94).Magnitude
-                        if _0x2db5 < _0x2c2e then
-                            _0x2c2e = _0x2db5
-                            _0x4b87 = _0x4c1a
-                        end
+    end)
+    local function L()
+        local M=w:GetMouseLocation()
+        local N=nil
+        local O=math.huge
+        for _,P in pairs(v:GetPlayers()) do
+            if P~=v.LocalPlayer and P.Character and P.Character:FindFirstChild("HumanoidRootPart") then
+                local Q=P.Character
+                local R,onScreen=workspace.CurrentCamera:WorldToViewportPoint(Q.HumanoidRootPart.Position)
+                if onScreen then
+                    local S=(Vector2.new(R.X,R.Y)-M).Magnitude
+                    if S<O then
+                        O=S
+                        N=P
                     end
                 end
             end
-            return _0x4b87
         end
-
-        _0x55f7.InputBegan:Connect(function(_0x1a11, _0x2b02)
-            if _0x2b02 then return end
-            if _0x1a11.KeyCode == Enum.KeyCode.C then
-                if _0x1d63 then
-                    _0x1d63 = nil
-                else
-                    _0x1d63 = _0x1b09()
-                end
-            end
-        end)
-
-        _0x535a.RenderStepped:Connect(function()
-            if _0x10a2 and _0x1d63 and _0x1d63.Character and _0x1d63.Character:FindFirstChild("HumanoidRootPart") then
-                local _0x3a62 = _0x1d63.Character.HumanoidRootPart.Position
-                if _0x23c0 then
-                    local _0x2ca1 = _0x1d63.Character.HumanoidRootPart.Velocity
-                    _0x3a62 = _0x3a62 + _0x2ca1 * _0x5015
-                end
-
-                local _0x3dff = workspace.CurrentCamera
-                _0x3dff.CFrame = CFrame.new(_0x3dff.CFrame.Position, _0x3a62)
-            end
-        end)
+        return N
     end
-})
-
-_0x378b:AddParagraph(
-    "⚠️Important⚠️",
-    "Only use prediction when you\nfight at high range\nLock/Unlock with C"
-)
-
-_0x79e4:Init()
+    w.InputBegan:Connect(function(T,U)
+        if U then return end
+        if T.KeyCode==Enum.KeyCode.C then
+            if B then
+                B=nil
+            else
+                B=L()
+            end
+        end
+    end)
+    x.RenderStepped:Connect(function()
+        if y and B and B.Character and B.Character:FindFirstChild("HumanoidRootPart") then
+            local T=B.Character.HumanoidRootPart.Position
+            if z then
+                local U=B.Character.HumanoidRootPart.Velocity
+                T=T+U*A
+            end
+            local V=workspace.CurrentCamera
+            V.CFrame=CFrame.new(V.CFrame.Position,T)
+        end
+    end)
+end})
+d:AddParagraph("⚠️Important⚠️","Only use prediction when you\nfight at high range\nLock/Unlock with C")
+e:AddButton({Name="Gate",Callback=function()
+    game.Players.LocalPlayer.Character:SetPrimaryPartCFrame(CFrame.new(-47.42,5.60,-498.29))
+end})
+e:AddButton({Name="Weapon Shop",Callback=function()
+    game.Players.LocalPlayer.Character:SetPrimaryPartCFrame(CFrame.new(-348.018798828125,5.600290775299072,-778.2922873632812))
+end})
+e:AddButton({Name="Safe Gate TP",Callback=function()
+    game.Players.LocalPlayer.Character:SetPrimaryPartCFrame(CFrame.new(-164.77700805664062,6.316139221191406,-646.4644775390625))
+end})
+e:AddButton({Name="Inside ASU area",Callback=function()
+    game.Players.LocalPlayer.Character:SetPrimaryPartCFrame(CFrame.new(-283.7239074707031,6.4162373542785645,-201.4882354736328)+Vector3.new(0,0,5))
+end})
+e:AddButton({Name="Inside TDU area",Callback=function()
+    game.Players.LocalPlayer.Character:SetPrimaryPartCFrame(CFrame.new(-720.596,5.946,313.436))
+end})
+a:Init()
