@@ -4,7 +4,7 @@ local c=b:MakeTab({Name="Main ⚙",Icon="rbxassetid://4483345998",PremiumOnly=fa
 local d=b:MakeTab({Name="AimLock 🏹",Icon="rbxassetid://4483345998",PremiumOnly=false})
 local e=b:MakeTab({Name="Teleports ✨",Icon="rbxassetid://4483345998",PremiumOnly=false})
 local f=b:MakeTab({Name="Info ℹ️",Icon="rbxassetid://4483345998",PremiumOnly=false})
-f:AddParagraph("Credits","Made by Keys")
+f:AddParagraph("Credits","Made by Keys and by the sigma\nRiley")
 f:AddParagraph("Last updated:","6th January 2025")
 local g=false
 local h=16
